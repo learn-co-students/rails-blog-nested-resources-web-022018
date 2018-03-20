@@ -11,5 +11,36 @@
   <% end %>
 </ul>
 
+
+<%= form_for(@comment, :url => post_comments_path(@post, @comment)) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.hidden_field :post_id, {:value => @post.id}%><br>
+    <%= f.collection_select :user_id, User.all, :id, :name %><br>
+      <p>Add a new comment:</p><br>
+      <%= f.label :content %>
+      <%= f.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <% end %>
+
+  <% @comments.each do |comment| %>
+    <li><%= comment.content %> | <%= comment.user ? comment.user.name : "no user"%></li>
+  <% end %>
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
