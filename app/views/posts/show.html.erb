@@ -22,6 +22,7 @@
 <%= form_for [@post, Comment.new] do |f| %>
   <%= f.collection_select :user_id, User.all, :id, :name %>
   <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label :content %>
   <%= f.text_area :content %>
   <%= f.submit %>
 <% end %>
