@@ -1,0 +1,6 @@
+<%= form_for [@post, Comment.new] do |f|%>
+	<%= f.label :content %>
+	<%= f.text_area :content %>
+	<%= f.hidden_field :post_id, value: @post.id %>
+	<%= f.submit %>
+<% end %>
